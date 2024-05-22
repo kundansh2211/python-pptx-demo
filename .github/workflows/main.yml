@@ -1,0 +1,40 @@
+name: Update PPTX on Image Addition
+
+on:
+  push:
+    paths:
+      - 'images/**'  # Trigger only on changes to files in the 'images' directory
+
+jobs:
+  update-ppt:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install python-pptx
+
+    - name: Run Python Script
+      run: |
+        source venv/bin/activate
+        python image_ppt.py # Replace with the path to your Python script
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add PPT/image_ppt.pptx
+        git commit -m 'Update image_ppt.pptx with new images'
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
