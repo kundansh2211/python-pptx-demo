@@ -7,7 +7,7 @@ on:
 
 jobs:
   update-ppt:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # This specifies the VM's operating system
 
     steps:
     - name: Checkout Repository
@@ -20,14 +20,16 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        python3 -m venv venv
-        source venv/bin/activate
-        pip3 install python-pptx
+        python -m venv venv
+        . venv/bin/activate
+        pip install python-pptx
+      shell: bash
 
     - name: Run Python Script
       run: |
-        source venv/bin/activate
-        python image_ppt.py # Replace with the path to your Python script
+        . venv/bin/activate
+        python your_script.py  # Replace with the path to your Python script
+      shell: bash
 
     - name: Commit and Push Changes
       run: |
@@ -38,3 +40,4 @@ jobs:
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: bash
