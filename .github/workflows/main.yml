@@ -18,17 +18,21 @@ jobs:
       with:
         python-version: '3.12'
 
+    - name: Display Python Version
+      run: python3 --version
+
     - name: Install Dependencies
       run: |
-        python -m venv venv
+        python3 -m venv venv
         . venv/bin/activate
-        pip install python-pptx
+        pip3 install --upgrade pip
+        pip3 install python-pptx
       shell: bash
 
     - name: Run Python Script
       run: |
         . venv/bin/activate
-        python your_script.py  # Replace with the path to your Python script
+        python image_ppt.py  
       shell: bash
 
     - name: Commit and Push Changes
