@@ -22,7 +22,7 @@ jobs:
       run: |
         python3 -m venv venv
         source venv/bin/activate
-        pip install python-pptx
+        pip3 install python-pptx
 
     - name: Run Python Script
       run: |
